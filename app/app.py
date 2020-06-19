@@ -5,6 +5,7 @@ from extensions import db
 from flask_migrate import Migrate
 
 from resources.user import UserListResource
+from models.user import User
 
 #, request
 #from flask_restful import Resource, Api
