@@ -1,3 +1,2 @@
 ./bootstrap.sh
-./gunicorn.sh
-
+./run.sh
