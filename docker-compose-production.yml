@@ -1,3 +1,4 @@
+---
 version: '3'
 
 services:
@@ -5,7 +6,7 @@ services:
     image: "traefik:v2.2"
     container_name: "traefik"
     command:
-      #- "--log.level=DEBUG"
+      # - "--log.level=DEBUG"
       - "--api.insecure=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=true"
@@ -15,8 +16,8 @@ services:
       - "8080:8080"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      #- "./traefik.toml:/etc/traefik/traefik.toml" 
-      #- "./traefik.yaml/:/etc/traefik/traefik.yaml"
+      # - "./traefik.toml:/etc/traefik/traefik.toml"
+      # - "./traefik.yaml/:/etc/traefik/traefik.yaml"
 
   api:
     labels:
@@ -45,16 +46,15 @@ services:
     image: dpage/pgadmin4
     labels:
       - "traefik.enable=true"
-      #- "traefik.http.routers.pgadmin.rule=PathPrefix(`/pgadmin`)"
-      #- "traefik.http.middlewares.pgadmin.stripprefix.prefixes=/pgadmin"
-      #- "traefik.http.middlewares.pgadmin.stripprefix.forceslash=false"
+      # - "traefik.http.routers.pgadmin.rule=PathPrefix(`/pgadmin`)"
+      # - "traefik.http.middlewares.pgadmin.stripprefix.prefixes=/pgadmin"
+      # - "traefik.http.middlewares.pgadmin.stripprefix.forceslash=false"
     environment:
       - PGADMIN_DEFAULT_EMAIL=info@sp33c.tech
       - PGADMIN_DEFAULT_PASSWORD=prinus
       - SCRIPT_NAME=/pgadmin
     volumes:
       - ./servers.json:/pgadmin4/servers.json
-    ports: 
+    ports:
       - 8082:80
     container_name: pgadmin
-
