@@ -52,7 +52,7 @@ services:
     environment:
       - PGADMIN_DEFAULT_EMAIL=info@sp33c.tech
       - PGADMIN_DEFAULT_PASSWORD=prinus
-      - SCRIPT_NAME=/pgadmin
+      # - SCRIPT_NAME=/pgadmin
     volumes:
       - ./servers.json:/pgadmin4/servers.json
     ports:
