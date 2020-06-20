@@ -1,1 +1,1 @@
-python3 -m yamllint docker-compose.yml
+python3 -m yamllint $*
