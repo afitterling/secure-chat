@@ -29,7 +29,7 @@ def register_extensions(app):
 def register_resources(app):
     api = Api(app)
 
-    api.add_resource(UserListResource, '/users')
+    api.add_resource(UserListResource, '/api/v1' + '/users')
 
 
 if __name__ == '__main__':

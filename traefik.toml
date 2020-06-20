@@ -1,0 +1,28 @@
+logLevel = "DEBUG"
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+## Dynamic configuration
+#[http.routers]
+#  [http.routers.my-router]
+#    rule = "Path(`/api`)"
+#    service = "api"
+
+
+# traefik.toml
+#defaultEntryPoints = ["http", "https"]
+#[entryPoints]
+#  [entryPoints.http]
+#  address = ":80"
+#    [entryPoints.http.redirect]
+#      entryPoint = "https"
+#  [entryPoints.https]
+#  address = ":443"
+#    [entryPoints.https.tls]
+#      [[entryPoints.https.tls.certificates]]
+#      CertFile = "integration/fixtures/https/snitest.com.cert"
+#      KeyFile = "integration/fixtures/https/snitest.com.key"
+#      [[entryPoints.https.tls.certificates]]
+#      CertFile = "integration/fixtures/https/snitest.org.cert"
+#      KeyFile = "integration/fixtures/https/snitest.org.key"
+
