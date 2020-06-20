@@ -11,7 +11,7 @@ services:
       - "--providers.docker.exposedbydefault=true"
       - "--entrypoints.web.address=:81"
     ports:
-      - "80:80"
+      - "81:81"
       - "8080:8080"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
