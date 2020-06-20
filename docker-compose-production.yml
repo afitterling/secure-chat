@@ -1,10 +1,35 @@
 version: '3'
 
 services:
+  traefik:
+    image: "traefik:v2.2"
+    container_name: "traefik"
+    command:
+      #- "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=true"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+#      - "./traefik.toml:/etc/traefik/traefik.toml" 
+#      - "./traefik.yaml/:/etc/traefik/traefik.yaml"
+
   api:
+    labels:
+      #- "traefik.http.middlewares.test-replacepath.replacepath.path=/foo"
+      #- traefik.http.routers.my-app.rule=Host(`example.com`)
+      - traefik.http.routers.api.rule=PathPrefix(`/api`)
+      #- "traefik.http.middlewares.api.stripprefix.prefixes=/api-v1"
+      #- traefik.http.services.api.loadbalancer.server.port=5000
+      #- "traefik.http.services.api.loadbalancer.server.port=8081"
+      #- "traefik.http.routers.api.rule: \"path(/api)\""
     image: sp33c/python:3.7
     ports:
-      - 8080:5000
+      - 8081:5000
     container_name: api
     volumes:
       - .:/app
@@ -33,7 +58,7 @@ services:
     volumes:
       - ./servers.json:/pgadmin4/servers.json
     ports: 
-      - 8081:80
+      - 8082:80
     container_name: pgadmin
 
 #volumes:
