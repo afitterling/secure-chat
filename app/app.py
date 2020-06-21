@@ -4,6 +4,9 @@ from config import Config
 from extensions import db
 from flask_migrate import Migrate
 
+#TODO
+#https://flask-cors.readthedocs.io/en/latest/
+
 from resources.user import UserListResource
 from models.user import User
 
