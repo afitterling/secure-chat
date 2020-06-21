@@ -13,9 +13,9 @@ from models.user import User
 
 def create_app():
     app = Flask(__name__)
-    #api = Api(app)
-
     app.config.from_object(Config)
+    #db.init_app(app)
+
     register_extensions(app)
     register_resources(app)
 
