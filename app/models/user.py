@@ -5,8 +5,8 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), nullable=False, unique=True)
-    firstname = db.Column(db.String(80), nullable=False, unique=False)
-    lastname = db.Column(db.String(80), nullable=False, unique=False)
+    firstname = db.Column(db.String(80), nullable=True, unique=False)
+    lastname = db.Column(db.String(80), nullable=True, unique=False)
     email = db.Column(db.String(200), nullable=False, unique=True)
     password = db.Column(db.String(200), nullable=False)
     is_active = db.Column(db.Boolean, default=False)
