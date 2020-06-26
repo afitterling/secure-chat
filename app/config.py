@@ -10,3 +10,4 @@ class Config:
                 if not os.environ.get('SECRET_KEY') else os.environ.get('SECRET_KEY')
         JWT_ERROR_MESSAGE_KEY = 'message'
 
+
