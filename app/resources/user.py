@@ -12,10 +12,10 @@ class UserResource(Resource):
             email = json_data.get('email')
             no_hash_password = json_data.get('password')
 
-            if User.query.filter_by(username=username).first():
+            if User.get_by_username(username):
                 return {'message': 'username used already'}, HTTPStatus.BAD_REQUEST
 
-            if User.query.filter_by(email=email).first():
+            if User.get_by_email(email):
                 return {'message': 'email used already'}, HTTPStatus.BAD_REQUEST
 
             user = User(username=username, email=email, password=hash_password(no_hash_password) )

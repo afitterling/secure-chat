@@ -1,13 +1,15 @@
+# TODO https://flask-cors.readthedocs.io/en/latest/
+
 from flask import Flask, request
 from flask_restful import Resource, Api
 from config import Config
 from extensions import db, jwt
 from flask_migrate import Migrate
+
 from resources.user import UserResource
 from resources.test import ApiTestResource
-
-#TODO
-#https://flask-cors.readthedocs.io/en/latest/
+from resources.token import TokenResource
+from resources.test_auth import ApiTestAuthResource
 
 def create_app():
     app = Flask(__name__)
@@ -23,8 +25,10 @@ def register_extensions(app):
 
 def register_resources(app):
     api = Api(app)
-    api.add_resource(UserResource, '/api/v1' + '/users')
+    #api.add_resource(UserResource, '/api/v1' + '/users')
     api.add_resource(ApiTestResource, '/api/v1' + '/status')
+    api.add_resource(TokenResource,'/api/v1'+ '/auth')
+    api.add_resource(ApiTestAuthResource,'/api/v1'+ '/auth_test')
 
 if __name__ == '__main__':
     app = create_app()

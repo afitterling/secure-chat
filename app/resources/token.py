@@ -6,3 +6,19 @@ from flask_jwt_extended import create_access_token
 from utils import verify_password
 from models.user import User
 
+class TokenResource(Resource):
+
+    def post(self):
+        json_data = request.get_json()
+        email = json_data.get('email')
+        password = json_data.get('password')
+        
+        user = User.get_by_email(email=email)
+
+        if not user or not verify_password(password, user.password):
+            return {'message': 'email or password is incorrect'}, HTTPStatus.UNAUTHORIZED
+
+        access_token = create_access_token(identity=user.id)
+
+        return {'access_token': access_token}, HTTPStatus.OK
+
