@@ -10,10 +10,10 @@ class ItemResource(Resource):
     @jwt_required
     def get(self):
         items = Item.query.all()
-        response_data = []
+        data = {'items': []}
         for item in items:
-            response_data.append({'id': item.id, 'name': item.name})
-        return {'items': response_data}, HTTPStatus.OK
+            data.items.append({'id': item.id, 'name': item.name})
+        return data, HTTPStatus.OK
 
     @jwt_required
     def post(self):
