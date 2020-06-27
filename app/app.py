@@ -29,7 +29,7 @@ def register_extensions(app):
 
 def register_resources(app):
     api = Api(app)
-    #api.add_resource(UserResource, '/api/v1' + '/users')
+    api.add_resource(UserResource, '/api/v1' + '/users')
     api.add_resource(ApiTestResource, '/api/v1' + '/status')
     api.add_resource(TokenResource,'/api/v1'+ '/auth')
     api.add_resource(ApiTestAuthResource,'/api/v1'+ '/auth_test')
