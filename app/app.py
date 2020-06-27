@@ -11,6 +11,7 @@ from resources.test import ApiTestResource
 from resources.token import (
         TokenResource,
         RevokeTokenResource,
+        RefreshTokenResource,
         black_list
     )
 from resources.test_auth import ApiTestAuthResource
@@ -26,7 +27,8 @@ def create_app():
     
     register_basic_resources(app)
     register_app_specific_resources(app)
-    
+    list_routes(app)
+
     return app
 
 def register_extensions(app):
@@ -46,12 +48,23 @@ def register_basic_resources(app):
     api.add_resource(UserResource, '/api/v1' + '/users')
     api.add_resource(ApiTestResource, '/api/v1' + '/status')
     api.add_resource(TokenResource,'/api/v1'+ '/auth')
-    api.add_resource(RevokeTokenResource,'/api/v1'+ '/auth')
+    api.add_resource(RefreshTokenResource,'/api/v1'+ '/refresh')
+    api.add_resource(RevokeTokenResource,'/api/v1'+ '/revoke')
     api.add_resource(ApiTestAuthResource,'/api/v1'+ '/auth_test')
 
 def register_app_specific_resources(app):
     api = Api(app)
     api.add_resource(ItemResource,'/api/v1'+ '/items')
+
+def list_routes(app):
+    routes = []
+
+    print('')
+    for rule in app.url_map.iter_rules():
+        routes.append('%s' % rule)
+        print('%s' % rule)
+    print('')
+    return routes
 
 if __name__ == '__main__':
     app = create_app()

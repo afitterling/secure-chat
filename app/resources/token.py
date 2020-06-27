@@ -43,6 +43,12 @@ class RevokeTokenResource(Resource):
         black_list.add(jti)
         return {'message': 'Successfully logged out'}, HTTPStatus.OK
 
-#TODO
-#class RefreshTokenResource(Resource):
+
+class RefreshTokenResource(Resource):
+
+    @jwt_refresh_token_required
+    def post(self):
+        current_user = get_jwt_identity()
+        access_token = create_access_token(identity=current_user,fresh=False)
+        return {access_token: access_token}, HTTPStatus.OK
 
