@@ -28,7 +28,7 @@ services:
       - 8081:5000
     container_name: api
     volumes:
-      - .:/app
+      - .:/work
     command: "./production.sh"
 
   postgres:
