@@ -10,10 +10,10 @@ class ItemResource(Resource):
     @jwt_required
     def get(self):
         items = Item.query.all()
-        data = {'items': []}
+        data = []
         for item in items:
-            data.items.append({'id': item.id, 'name': item.name})
-        return data, HTTPStatus.OK
+            data.append({'id': item.id, 'name': item.name})
+        return {'items': data}, HTTPStatus.OK
 
     @jwt_required
     def post(self):
@@ -28,7 +28,7 @@ class ItemResource(Resource):
         item = Item(user_id=user.id, name=item_name)
         
         item.save()
-        
+
         data = {'id': item.id, 'name': item.name}
 
         return data, HTTPStatus.OK
