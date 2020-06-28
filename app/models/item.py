@@ -14,7 +14,11 @@ class Item(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
-#    def serialize(self):
-#        return {"id": self.id, "title": self.name }
+    @classmethod
+    def get_by_id(cls, id):
+        return cls.query.filter_by(id=id).first()
 
