@@ -15,7 +15,11 @@ from resources.token import (
         black_list
     )
 from resources.test_auth import ApiTestAuthResource
-from resources.item import ItemResource
+
+from resources.item import (
+    ItemListResource,
+    ItemResource
+)
 
 def create_app():
     app = Flask(__name__)
@@ -41,6 +45,7 @@ def register_extensions(app):
         jti = decrypted_token['jti']
         return jti in black_list
 
+#TODO put in different file
 def register_basic_resources(app):
     # TODO refresh token
     # TODO test revoke
@@ -52,18 +57,17 @@ def register_basic_resources(app):
     api.add_resource(RevokeTokenResource,'/api/v1'+ '/revoke')
     api.add_resource(ApiTestAuthResource,'/api/v1'+ '/auth_test')
 
+#TODO put in different file
 def register_app_specific_resources(app):
     api = Api(app)
-    api.add_resource(ItemResource,'/api/v1'+ '/items')
+    api.add_resource(ItemListResource,'/api/v1/'+ 'items/', methods = ['GET', 'POST'])
+    api.add_resource(ItemResource,'/api/v1/'+ 'items/<int:id>', methods = ['DELETE'])
 
 def list_routes(app):
     routes = []
 
-    print('')
     for rule in app.url_map.iter_rules():
         routes.append('%s' % rule)
-        print('%s' % rule)
-    print('')
     return routes
 
 if __name__ == '__main__':
