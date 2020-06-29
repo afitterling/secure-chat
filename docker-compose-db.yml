@@ -32,7 +32,7 @@ services:
       - PGADMIN_DEFAULT_EMAIL=info@sp33c.tech
       - PGADMIN_DEFAULT_PASSWORD=prinus
     volumes:
-      - ./servers.json:/pgadmin4/servers.json
+      - ./etc/servers.json:/pgadmin4/servers.json
     ports: 
       - 8081:80
     container_name: pgadmin
