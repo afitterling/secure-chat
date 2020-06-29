@@ -1,7 +1,3 @@
-# maximum flexible agile driven api running as docker app 
+# a full fledged api as docker app written in python
 
-## why python?
-
-Because you can do the same as in Java but with less code.
-you can easily bind to pandas if you like.
 
