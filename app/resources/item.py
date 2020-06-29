@@ -16,8 +16,6 @@ class ItemListResource(Resource):
             data.append({'id': item.id, 'name': item.name})
         return {'items': data}, HTTPStatus.OK
 
-class ItemResource(Resource):
-
     @jwt_required
     def post(self):
         user = User.get_by_id(id=get_jwt_identity())
@@ -36,6 +34,8 @@ class ItemResource(Resource):
 
         return data, HTTPStatus.OK
 
+class ItemResource(Resource):
+
     @jwt_required
     def delete(self, id):
         user = User.get_by_id(id=get_jwt_identity())
@@ -53,6 +53,23 @@ class ItemResource(Resource):
         item.delete()
         return {}, HTTPStatus.OK
 
+    @jwt_required
+    def put(self, id):
+        user = User.get_by_id(id=get_jwt_identity())
+        
+        if not user:
+            return HTTPStatus.FORBIDDEN
+
+        json_data = request.get_json()
+        item_name = json_data.get('name')
+
+        item = Item.get_by_id(id)
+        item.name = item_name
+        item.save()
+
+        data = {'id': item.id, 'name': item.name}
+
+        return data, HTTPStatus.OK
 
 
         
