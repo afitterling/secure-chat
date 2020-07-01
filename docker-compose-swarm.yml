@@ -10,7 +10,11 @@ services:
     build: .
     ports:
       - 8081:5000
-    container_name: api
+    deploy:
+      replicas: 4
+      update_config:
+        parallelism: 2
+        delay: 10s
 
   postgres:
     image: postgres:12.0-alpine
@@ -21,7 +25,10 @@ services:
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
       - .:/var/lib/postgresql/data
-    container_name: postgres
+    deploy: 
+      placement: 
+        constraints:
+          - node.role == manager
 
   pgadmin:
     image: dpage/pgadmin4
@@ -38,4 +45,7 @@ services:
       - ./etc/servers.json:/pgadmin4/servers.json
     ports:
       - 8082:80
-    container_name: pgadmin
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
