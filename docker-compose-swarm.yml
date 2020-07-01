@@ -1,0 +1,40 @@
+---
+version: '3'
+
+services:
+  api:
+    labels:
+      - "traefik.enable=true"
+      - traefik.http.routers.api.rule=PathPrefix(`/api`)
+    image: sp33c/api:1.0
+    ports:
+      - 8081:5000
+    container_name: api
+
+  postgres:
+    image: postgres:12.0-alpine
+    environment:
+      - POSTGRES_PASSWORD=dbpasswd
+      - POSTGRES_USER=dbuser
+      - POSTGRES_DB=appdb
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - .:/var/lib/postgresql/data
+    container_name: postgres
+
+  pgadmin:
+    image: dpage/pgadmin4
+    labels:
+      - "traefik.enable=true"
+      # - "traefik.http.routers.pgadmin.rule=PathPrefix(`/pgadmin`)"
+      # - "traefik.http.middlewares.pgadmin.stripprefix.prefixes=/pgadmin"
+      # - "traefik.http.middlewares.pgadmin.stripprefix.forceslash=false"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=info@sp33c.tech
+      - PGADMIN_DEFAULT_PASSWORD=prinus
+      # - SCRIPT_NAME=/pgadmin
+    volumes:
+      - ./etc/servers.json:/pgadmin4/servers.json
+    ports:
+      - 8082:80
+    container_name: pgadmin
