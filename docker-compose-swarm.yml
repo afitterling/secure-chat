@@ -11,6 +11,9 @@ services:
     ports:
       - 8000:8000
     deploy:
+      placement:
+        constraints:
+          - node.labels.worker==python
       replicas: 4
       update_config:
         parallelism: 2
@@ -28,7 +31,8 @@ services:
     deploy: 
       placement: 
         constraints:
-          - node.role == manager
+          - node.labels.role==db
+            #- node.role == manager
 
   pgadmin:
     image: dpage/pgadmin4
@@ -48,4 +52,5 @@ services:
     deploy:
       placement:
         constraints:
-          - node.role == manager
+          - node.labels.role==db
+                #- node.role == manager
