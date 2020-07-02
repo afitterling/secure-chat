@@ -9,7 +9,7 @@ services:
     image: 127.0.0.1:5001/api:1.0
     build: .
     ports:
-      - 8081:5000
+      - 8000:8000
     deploy:
       replicas: 4
       update_config:
