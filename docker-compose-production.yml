@@ -29,7 +29,7 @@ services:
     container_name: api
     volumes:
       - .:/work
-    command: "./rc/production.sh"
+    command: "./rc/production-volume.sh"
 
   postgres:
     image: postgres:12.0-alpine
