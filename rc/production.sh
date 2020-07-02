@@ -1,3 +1,4 @@
-./rc/bootstrap.sh
+#!/bin/sh
+#./rc/bootstrap.sh
 ./rc/db-upgrade.sh
 ./rc/run.sh
