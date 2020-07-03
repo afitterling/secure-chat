@@ -1,3 +1,4 @@
+from redis import Redis
 from http import HTTPStatus
 from flask import request
 from flask_restful import Resource
@@ -13,6 +14,7 @@ from flask_jwt_extended import (
 from utils import verify_password
 from models.user import User
 
+redis = Redis(host='redis', port=6379)
 black_list = set()
 
 class TokenResource(Resource):
@@ -28,6 +30,8 @@ class TokenResource(Resource):
             return {'message': 'email or password is incorrect'}, HTTPStatus.UNAUTHORIZED
 
         access_token = create_access_token(identity=user.id, fresh=True)
+        Redis.set(redis, name=user.id, value=access_token);
+
         refresh_token = create_refresh_token(identity=user.id)
 
         return {
