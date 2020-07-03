@@ -10,12 +10,25 @@ from flask_jwt_extended import (
     jwt_required,
     get_raw_jwt
     )
-
+    
+from extensions import jwt
 from utils import verify_password
 from models.user import User
 
 redis = Redis(host='redis', port=6379)
-black_list = set()
+
+#black_list = set()
+
+def black_list_add(jti):
+    #black_list.add(jti)
+    redis.sadd('black_list', jti)
+
+@jwt.token_in_blacklist_loader
+def check_if_token_in_blacklist(decrypted_token):
+    jti = decrypted_token['jti']
+    #    return jti in black_list
+    return redis.sismember('black_list', jti)
+
 
 class TokenResource(Resource):
 
@@ -30,7 +43,6 @@ class TokenResource(Resource):
             return {'message': 'email or password is incorrect'}, HTTPStatus.UNAUTHORIZED
 
         access_token = create_access_token(identity=user.id, fresh=True)
-        Redis.set(redis, name=user.id, value=access_token);
 
         refresh_token = create_refresh_token(identity=user.id)
 
@@ -44,7 +56,8 @@ class RevokeTokenResource(Resource):
     @jwt_required
     def post(self):
         jti = get_raw_jwt()['jti']
-        black_list.add(jti)
+        #black_list.add(jti)        
+        black_list_add(jti)
         return {'message': 'Successfully logged out'}, HTTPStatus.OK
 
 
