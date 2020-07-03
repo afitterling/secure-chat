@@ -25,11 +25,11 @@ services:
       - traefik.http.routers.api.rule=PathPrefix(`/api`)
     image: sp33c/python:3.8
     ports:
-      - 8081:5000
+      - 8000:8000
     container_name: api
     volumes:
       - .:/work
-    command: "./rc/production.sh"
+    command: "./rc/production-volume.sh"
 
   postgres:
     image: postgres:12.0-alpine
