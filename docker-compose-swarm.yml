@@ -21,6 +21,28 @@ services:
         parallelism: 2
         delay: 10s
 
+  redis:
+    container_name: redis
+    hostname: redis
+    image: redis
+    deploy: 
+    placement: 
+      constraints:
+        - node.labels.role==db
+
+  redis-commander:
+    container_name: redis-commander
+    hostname: redis-commander
+    image: rediscommander/redis-commander:latest
+    restart: always
+    environment:
+    - REDIS_HOSTS=local:redis:6379
+    ports:
+    - "8085:8081"
+    placement: 
+      constraints:
+        - node.labels.role==db
+      
   postgres:
     image: postgres:12.0-alpine
     environment:
