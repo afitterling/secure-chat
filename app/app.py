@@ -6,7 +6,6 @@ from config import Config
 from extensions import db, jwt
 from flask_migrate import Migrate
 from flask_cors import CORS
-#from resources.token import (black_list)
 from routes import *
 
 def create_app():
@@ -26,11 +25,6 @@ def register_extensions(app):
     db.init_app(app)
     migrate = Migrate(app, db)
     jwt.init_app(app)
-
-#@jwt.token_in_blacklist_loader
-#def check_if_token_in_blacklist(decrypted_token):
-#    jti = decrypted_token['jti']
-#    return jti in black_list
 
 def list_routes(app):
     routes = []
