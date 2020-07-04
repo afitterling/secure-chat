@@ -9,12 +9,12 @@ from extensions import redis
 
 def event_stream(channel_name):
     pubsub = redis.pubsub()
-    pubsub.subscribe(channel_name)
+    pubsub.subscribe('topic-' + channel_name)
     # TODO: handle client disconnection.
     for message in pubsub.listen():
         print(message)
         if message['type']=='message':
-            yield 'data: %s\n\n' % message['data'].decode('utf-8')
+            yield '%s\n\n' % message['data'].decode('utf-8')
 
 class ChannelResource(Resource):
 
@@ -32,7 +32,7 @@ class ChannelResource(Resource):
         json_data = request.get_json()
         message = json_data.get('message')
 
-        redis.publish(channel_name, message)
+        redis.publish('topic-' + channel_name, message)
 #        item_name = json_data.get('name')
 
 #item = Item(user_id=user.id, name=item_name)
