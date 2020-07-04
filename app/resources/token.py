@@ -1,4 +1,3 @@
-from redis import Redis
 from http import HTTPStatus
 from flask import request
 from flask_restful import Resource
@@ -14,8 +13,8 @@ from flask_jwt_extended import (
 from extensions import jwt
 from utils import verify_password
 from models.user import User
+from extensions import redis
 
-redis = Redis(host='redis', port=6379)
 
 def black_list_add(jti):
     redis.sadd('black_list', jti)
