@@ -19,8 +19,11 @@ def event_stream(channel_name):
 class ChannelResource(Resource):
 
     def get(self, channel_name):
-        return Response(event_stream(channel_name),
+        resp = Response(event_stream(channel_name),
                           mimetype="text/event-stream")
+        resp.headers['Cache-control'] = 'no-cache'
+        resp.headers['X-Accel-Buffering'] = 'no'
+        return resp
 
     #@jwt_required
     def post(self, channel_name):
