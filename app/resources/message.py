@@ -14,7 +14,9 @@ def event_stream(channel_name):
     for message in pubsub.listen():
         print(message)
         if message['type']=='message':
-            yield '%s\n\n' % message['data'].decode('utf-8')
+            #r = 'event: message\n%s\n\n' % message['data'].decode('utf-8')
+            r = "\n\nevent: message\ndata: "+message['data'].decode('utf-8')+"\n\n"
+            yield r
 
 class ChannelResource(Resource):
 
@@ -23,6 +25,7 @@ class ChannelResource(Resource):
                           mimetype="text/event-stream")
         resp.headers['Cache-control'] = 'no-cache'
         resp.headers['X-Accel-Buffering'] = 'no'
+        resp.headers['Access-Control-Allow-Credentials'] = 'true'
         return resp
 
     #@jwt_required
