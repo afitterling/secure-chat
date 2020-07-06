@@ -1,6 +1,6 @@
-# A secure chat system to support people in HongKong to allow to communicate and to beat china
+# A secure chat system to support people in HongKong to allow to communicate freely and uncensored
 
-peer 2 peer is the way to go, but mine acts more meshed based (semi-centralized) mesh communication with many entry nodes. So mine is not peer to peer.
+peer 2 peer is the way to go, but mine acts more meshed based (semi-centralized) mesh communication with many entry nodes. 
 
 network is ingres
 
@@ -12,7 +12,7 @@ web based client only
 
 ## constant redeploy of services every minute automatically or by chaos monkey yet to write in python to get rid of any hacks on any images or even compromised nodes (boto3-python handles this -> aws)
 
-## asynchronos encryption (end to end) and synchronous encryption for individual messages if you think you have a spy joining
+## asynchronos encryption (end to end) and synchronous encryption for ad-hoc fallback for individual messages if you think you have a spy joining
 
 
 
