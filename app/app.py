@@ -11,12 +11,12 @@ from routes import *
 def create_app():
     app = Flask(__name__)
     # https://flask-cors.readthedocs.io/en/latest/
-    cors = CORS(app) # cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
     app.config.from_object(Config)
     register_extensions(app)
     
     register_basic_resources(app)
     register_app_specific_resources(app)
+    cors = CORS(app) # cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
     list_routes(app)
     return app
