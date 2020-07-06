@@ -35,7 +35,8 @@ class ChannelResource(Resource):
         json_data = request.get_json()
         message = json_data.get('message')
 
-        redis.publish('topic-' + channel_name, message)
+        # TODO attack protection
+        redis.publish('topic-' + channel_name, str(message))
 #        item_name = json_data.get('name')
 
 #item = Item(user_id=user.id, name=item_name)
