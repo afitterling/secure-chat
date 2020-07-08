@@ -41,13 +41,6 @@ class ChannelResource(Resource):
 
         # TODO attack protection
         nsubs = redis.publish('topic-' + channel_name, str(message))
-#        item_name = json_data.get('name')
-
-#item = Item(user_id=user.id, name=item_name)
         
-#        item.save()
-
-#        data = {'id': item.id, 'name': item.name}
-
         return {'nsubs': nsubs}, HTTPStatus.OK
 

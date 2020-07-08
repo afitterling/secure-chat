@@ -3,10 +3,7 @@ from resources.user import (UserResource)
 from resources.test import ApiTestResource
 from resources.token import TokenResource, RefreshTokenResource, RevokeTokenResource
 from resources.test_auth import ApiTestAuthResource
-#from resources.item import (
-#    ItemListResource,
-#    ItemResource,    
-#)
+from resources.channel import ChannelResource
 
 def register_basic_resources(app):
     api = Api(app)
@@ -16,8 +13,6 @@ def register_basic_resources(app):
     api.add_resource(RefreshTokenResource,'/api/v1'+ '/refresh')
     api.add_resource(RevokeTokenResource,'/api/v1'+ '/revoke')
     api.add_resource(ApiTestAuthResource,'/api/v1'+ '/auth_test')
-
-from resources.channel import ChannelResource
 
 def register_app_specific_resources(app):
     api = Api(app)
