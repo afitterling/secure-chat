@@ -15,7 +15,8 @@ def event_stream(channel_name):
         print(message)
         if message['type']=='message':
             #r = 'event: message\n%s\n\n' % message['data'].decode('utf-8')
-            r = "\n\nevent: message\ndata: "+message['data'].decode('utf-8')+"\n\n"
+            cm = message['data'].decode('utf-8')
+            r = "\n\nevent: message\ndata: "+cm+"\n\n"
             yield r
 
 class ChannelResource(Resource):
@@ -39,7 +40,7 @@ class ChannelResource(Resource):
         message = json_data.get('message')
 
         # TODO attack protection
-        redis.publish('topic-' + channel_name, str(message))
+        nsubs = redis.publish('topic-' + channel_name, str(message))
 #        item_name = json_data.get('name')
 
 #item = Item(user_id=user.id, name=item_name)
@@ -48,5 +49,5 @@ class ChannelResource(Resource):
 
 #        data = {'id': item.id, 'name': item.name}
 
-        return {}, HTTPStatus.OK
+        return {'nsubs': nsubs}, HTTPStatus.OK
 
