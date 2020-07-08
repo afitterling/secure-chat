@@ -25,8 +25,9 @@ class ChannelMessagesResource(Resource):
         msgs = redis.zrange(channel_name,0, 100)
         resp = []
         for msg in msgs:
-            resp.append(msg)
-        return {'messages': msgs}, HTTPStatus.OK
+            decoded = msg.decode('utf-8')
+            resp.append(decoded)
+        return {'messages': resp}, HTTPStatus.OK
 
 class ChannelResource(Resource):
 
