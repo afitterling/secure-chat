@@ -20,6 +20,14 @@ def event_stream(channel_name):
             r = "\n\nevent: message\ndata: "+cm+"\n\n"
             yield r
 
+class ChannelMessagesResource(Resource):
+    def get(self, channel_name):
+        msgs = redis.zrange(channel_name,0, 100)
+        resp = []
+        for msg in msgs:
+            resp.append(msg)
+        return {'messages': msgs}, HTTPStatus.OK
+
 class ChannelResource(Resource):
 
     def get(self, channel_name):
