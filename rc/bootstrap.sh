@@ -6,4 +6,5 @@ python3 -m pip install -r requirements.txt
 #flask db init
 #flask db migrate
 #flask db upgrade
-
+npm install nodemon
+iexport PATH=$PATH:node_modules/nodemon/bin
