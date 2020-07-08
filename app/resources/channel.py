@@ -6,6 +6,7 @@ from http import HTTPStatus
 from flask_restful import Resource
 from messages import *
 from extensions import redis
+from time import time
 
 def event_stream(channel_name):
     pubsub = redis.pubsub()
@@ -41,6 +42,7 @@ class ChannelResource(Resource):
 
         # TODO attack protection
         nsubs = redis.publish('topic-' + channel_name, str(message))
+        redis.zadd('topic-' + channel_name, {str(message): time()})
         
         return {'nsubs': nsubs}, HTTPStatus.OK
 
