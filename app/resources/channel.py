@@ -39,10 +39,11 @@ class ChannelResource(Resource):
 
         json_data = request.get_json()
         message = json_data.get('message')
-
+        ts = time()
+        message['time'] = ts
         # TODO attack protection
         nsubs = redis.publish('topic-' + channel_name, str(message))
-        redis.zadd('topic-' + channel_name, {str(message): time()})
+        redis.zadd('topic-' + channel_name, {str(message): ts})
         
         return {'nsubs': nsubs}, HTTPStatus.OK
 
