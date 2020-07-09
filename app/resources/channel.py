@@ -7,6 +7,7 @@ from flask_restful import Resource
 from messages import *
 from extensions import redis
 from time import time
+import json
 
 def event_stream(channel_name):
     pubsub = redis.pubsub()
@@ -25,8 +26,7 @@ class ChannelMessagesResource(Resource):
         msgs = redis.zrange(channel_name,0, 100)
         resp = []
         for msg in msgs:
-            decoded = msg.decode('utf-8')
-            resp.append(decoded)
+            resp.append(json.loads(msg.decode('utf-8').replace("'", '"')))
         return {'messages': resp}, HTTPStatus.OK
 
 class ChannelResource(Resource):
