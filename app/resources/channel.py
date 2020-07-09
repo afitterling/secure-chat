@@ -52,7 +52,8 @@ class ChannelResource(Resource):
         message['time'] = ts
         # TODO attack protection
         nsubs = redis.publish('topic-' + channel_name, str(message))
-        redis.zadd('topic-' + channel_name, {str(message): ts})
+        if message['persistency'] == 1:
+            redis.zadd('topic-' + channel_name, {str(message): ts})
         
         return {'nsubs': nsubs}, HTTPStatus.OK
 
