@@ -23,7 +23,7 @@ def event_stream(channel_name):
 
 class ChannelMessagesResource(Resource):
     def get(self, channel_name):
-        msgs = redis.zrange(channel_name,0, 100)
+        msgs = redis.zrange('topic-' + channel_name,0, 100)
         resp = []
         for msg in msgs:
             resp.append(json.loads(msg.decode('utf-8').replace("'", '"')))
