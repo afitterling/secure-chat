@@ -20,6 +20,6 @@ def register_basic_resources(app):
 def register_app_specific_resources(app):
     api = Api(app)
     ##
-    api.add_resource(ChannelResource,'/api/v1/'+ 'channel/<string:channel_name>', methods = ['POST', 'GET'])
-    api.add_resource(ChannelMessagesResource,'/api/v1/'+ 'channel/<string:channel_name>/messages', methods = ['GET'])
+    api.add_resource(ChannelResource,'/api/v1/'+ 'channel/<string:channel_name>/listen', methods = ['GET'])
+    api.add_resource(ChannelMessagesResource,'/api/v1/'+ 'channel/<string:channel_name>/messages', methods = ['GET', 'POST'])
 
