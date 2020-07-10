@@ -13,9 +13,11 @@ import json
 def event_stream(channel_name):
     pubsub = redis.pubsub()
     pubsub.subscribe('topic-' + channel_name)
+    ## expire old values
+    tsExpire = time() - (12*60*60)
+    redis.zremrangebyscore('topic-' + channel_name, -1, tsExpire)
     # TODO: handle client disconnection.
     for message in pubsub.listen():
-        print(message)
         if message['type']=='message':
             cm = message['data'].decode('utf-8')
             r = "\n\nevent: message\ndata: "+cm+"\n\n"
@@ -38,7 +40,6 @@ class ChannelMessagesResource(Resource):
         nsubs = redis.publish('topic-' + channel_name, str(message))
         if message['persistency'] == 1:
             redis.zadd('topic-' + channel_name, {str(message): ts})
-        
         return {'nsubs': nsubs}, HTTPStatus.OK
 
 class ChannelResource(Resource):
