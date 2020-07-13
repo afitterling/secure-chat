@@ -1,6 +1,4 @@
 import os
-from os import urandom
-from base64 import b64encode
 
 class Config:
         DEBUG = True
@@ -13,10 +11,7 @@ class Config:
                 'pool_pre_ping': True
         }
 
-        ##############################################
-        # WARNING MUST USE SECRET KEY IN PRODUCTION
-        ##############################################
-        SECRET_KEY = os.environ.get('SECRET_KEY') + b64encode(urandom(20 * 2)).decode()
+        SECRET_KEY = os.environ.get('SECRET_KEY')
         
         JWT_ERROR_MESSAGE_KEY = 'message'
         JWT_BLACKLIST_ENABLED = True
