@@ -3,7 +3,7 @@ version: '3'
 
 services:
   api:
-    image: sp33c/chatapi:1.0
+    image: sp33c/chat-api:1.0
     build: .
     ports:
       - 8000:8000
