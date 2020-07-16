@@ -3,12 +3,13 @@ version: '3'
 
 services:
   api:
-    image: 127.0.0.1:5001/chatapi:1.0
+    image: sp33c/chatapi:1.0
     build: .
     ports:
       - 8000:8000
     depends_on:
-      - redis    
+      - redis
+      - postgres    
     deploy:
       placement:
         constraints:
@@ -48,7 +49,7 @@ services:
       - POSTGRES_DB=appdb
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
-      - /home/ubuntu/db:/var/lib/postgresql/data
+      - ${HOME}/chat-api-db:/var/lib/postgresql/data
     deploy: 
       placement: 
         constraints:
